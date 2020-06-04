@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <h1>Parents</h1>
+    <ul>
+      {% for parent in parents %}
+      <li>{{ parent.info.first_name }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

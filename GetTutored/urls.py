@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from parents.views import ParentList
+from tutors.views import TutorList, TutorDetail, TutorCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('parents/', ParentList.as_view(), name='parents'),
+    path('', TutorList.as_view(), name='tutors'),
+    path('tutor_add/<int:pk>/', TutorDetail.as_view(), name='tutor-add'),
+    path('tutor_create/', TutorCreate.as_view(), name='tutor-create'),
 ]

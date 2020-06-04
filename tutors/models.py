@@ -29,8 +29,15 @@ class Tutor(models.Model):
         ('m', 'Male'),
         ('fm', 'Female'),
     )
+    MEDIUM_CHOICES = (
+        ('online', 'Online Tutoring'),
+        ('physical', 'Physical Tutoring'),
+        ('both', 'Both'),
+    )
     title = models.CharField(
         max_length=10, choices=TITLE_CHOICES, default='master')
+    medium = models.CharField(
+        max_length=10, choices=MEDIUM_CHOICES, default='online')
     info = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(
         max_length=6, choices=GENDER_CHOICES, default='m')
@@ -42,10 +49,11 @@ class Tutor(models.Model):
     state = models.CharField(max_length=20, verbose_name='State')
     local_govt = models.CharField(
         max_length=20, verbose_name='Local Government')
-    available = models.BooleanField(default=True)
-    verified = models.BooleanField(default=False)
+    isAvailable = models.BooleanField(default=True)
+    isVerified = models.BooleanField(default=False)
     price = models.IntegerField(
         verbose_name='Price per Month')
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.info.first_name

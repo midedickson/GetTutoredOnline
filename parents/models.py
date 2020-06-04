@@ -11,6 +11,7 @@ class Parent(models.Model):
         ('master', 'Master.'),
         ('dr', 'Dr.'),
     )
+
     title = models.CharField(
         max_length=10, choices=TITLE_CHOICES, default='master')
 
@@ -39,9 +40,16 @@ class Child(models.Model):
 
 
 class TutorRequest(models.Model):
+    MEDIUM_CHOICES = (
+        ('online', 'Online Tutoring'),
+        ('physical', 'Physical Tutoring'),
+        ('both', 'Both'),
+    )
     requested_tutor = models.ForeignKey(
         Tutor, on_delete=models.CASCADE, related_name='Requested_Tutor')
 
+    medium = models.CharField(
+        max_length=10, choices=MEDIUM_CHOICES, default='online')
     requested_by = models.ForeignKey(
         Parent, on_delete=models.CASCADE, related_name='Requested_By')
 

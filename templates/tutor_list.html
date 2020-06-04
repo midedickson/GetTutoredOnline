@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <h1>Tutors</h1>
+    <ul>
+      {% for tutor in tutors %}
+      <li>{{ tutor.info.first_name }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
