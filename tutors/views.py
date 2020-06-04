@@ -1,49 +1,63 @@
-from .models import Tutor
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.shortcuts import get_object_or_404, redirect
+from rest_framework import mixins, generics, permissions
+
+from .models import Tutor
 from .serializers import TutorSerializer
+from .permissions import IsOwnerOrReadOnly
 
 
-class TutorDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'tutor_add.html'
+class TutorList(generics.ListAPIView):
+    """
+    List all tutors, or create a new tutor.
+    """
 
-    def get(self, request, pk):
-        tutor = get_object_or_404(Tutor, pk=pk)
-        serializer = TutorSerializer(tutor)
-        return Response({'serializer': serializer, 'tutor': tutor})
-
-    def post(self, request, pk):
-        tutor = get_object_or_404(Tutor, pk=pk)
-        serializer = TutorSerializer(tutor, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'tutor': tutor})
-        serializer.save()
-        return redirect('tutors')
+    queryset = Tutor.objects.all()
+    serializer_class = TutorSerializer
 
 
-class TutorList(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'tutor_list.html'
+class TutorCreate(generics.CreateAPIView):
+    """
+    List all tutors, or create a new tutor.
+    """
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
 
-    def get(self, request):
-        queryset = Tutor.objects.all()
-        return Response({'tutors': queryset})
+    queryset = Tutor.objects.all()
+    serializer_class = TutorSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Copy parsed content from HTTP request
+        data = request.data.copy()
+
+        # Add id of currently logged user
+        data['info'] = request.user.id
+
+        # Default behavior but pass our modified data instead
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-class TutorCreate(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'tutor_create.html'
+class TutorDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve, update or delete a tutor.
+    """
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly
+    ]
 
-    def get(self, request, *args, **kwargs):
-        serializer = TutorSerializer()
-        return Response({'serializer': serializer})
-
-    def post(self, request):
-        serializer = TutorSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer})
-        serializer.save(info=self.request.user)
-        return redirect('tutors')
+    queryset = Tutor.objects.all()
+    serializer_class = TutorSerializer

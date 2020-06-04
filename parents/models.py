@@ -15,7 +15,8 @@ class Parent(models.Model):
     title = models.CharField(
         max_length=10, choices=TITLE_CHOICES, default='master')
 
-    info = models.OneToOneField(User, on_delete=models.CASCADE)
+    info = models.OneToOneField(
+        User, related_name='Parent_Info', on_delete=models.CASCADE)
     address = models.CharField(max_length=200, verbose_name='Exact Address')
     state = models.CharField(max_length=20, verbose_name='State')
     local_govt = models.CharField(

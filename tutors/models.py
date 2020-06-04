@@ -38,7 +38,8 @@ class Tutor(models.Model):
         max_length=10, choices=TITLE_CHOICES, default='master')
     medium = models.CharField(
         max_length=10, choices=MEDIUM_CHOICES, default='online')
-    info = models.OneToOneField(User, on_delete=models.CASCADE)
+    info = models.OneToOneField(
+        User, related_name='Tutor_Info', on_delete=models.CASCADE)
     gender = models.CharField(
         max_length=6, choices=GENDER_CHOICES, default='m')
     expertise = models.ManyToManyField(Subject)
