@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from parents.views import ParentList
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('tutors.urls')),
-    path('', include('accounts.urls'))
+    path('tutors_api/', include('tutors.urls')),
+    path('parents_api/', include('parents.urls')),
+    path('accounts/', include('accounts.urls'))
 ]

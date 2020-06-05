@@ -1,4 +1,4 @@
-from tutors.models import Tutor
+from tutors.models import Tutor, Subject
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -24,6 +24,7 @@ class Parent(models.Model):
 
     phone_number = models.CharField(
         verbose_name='Phone Number', max_length=11)
+    # profile_photo
 
     def __str__(self):
         return self.info.first_name
@@ -48,6 +49,8 @@ class TutorRequest(models.Model):
     )
     requested_tutor = models.ForeignKey(
         Tutor, on_delete=models.CASCADE, related_name='Requested_Tutor')
+
+    subjects_requested = models.ManyToManyField(Subject)
 
     medium = models.CharField(
         max_length=10, choices=MEDIUM_CHOICES, default='online')

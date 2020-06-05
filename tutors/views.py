@@ -1,14 +1,7 @@
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect
-from django.views.decorators.csrf import csrf_exempt
-
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
-from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import mixins, generics, permissions
+from rest_framework import generics, permissions
 
 from .models import Tutor
 from .serializers import TutorSerializer
@@ -17,7 +10,7 @@ from .permissions import IsOwnerOrReadOnly
 
 class TutorList(generics.ListAPIView):
     """
-    List all tutors, or create a new tutor.
+    List all tutors.
     """
 
     queryset = Tutor.objects.all()
@@ -26,7 +19,7 @@ class TutorList(generics.ListAPIView):
 
 class TutorCreate(generics.CreateAPIView):
     """
-    List all tutors, or create a new tutor.
+    Create a new tutor.
     """
     permission_classes = [
         permissions.IsAuthenticated
