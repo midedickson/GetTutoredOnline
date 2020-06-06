@@ -69,3 +69,25 @@ class TutorRequest(models.Model):
     isAccepted = models.BooleanField(default=False)
     inProgress = models.BooleanField(default=False)
     isCompleted = models.BooleanField(default=False)
+
+    @property
+    def tutorPrice(self):
+        price = float(self.requested_tutor.price * self.requested_duration)
+        return price
+
+
+class SpecialRequest(models.Model):
+    MEDIUM_CHOICES = (
+        ('online', 'Online Tutoring'),
+        ('physical', 'Physical Tutoring'),
+        ('both', 'Both'),
+    )
+
+    requested_by = models.ForeignKey(
+        Parent, on_delete=models.CASCADE, related_name='Parent')
+
+    subject_needed = models.CharField(max_length=30)
+    meduim = models.CharField(
+        max_length=20, choices=MEDIUM_CHOICES, default='physical')
+    min_price = models.PositiveIntegerField(verbose_name='Minimum Price')
+    max_price = models.PositiveIntegerField(verbose_name='Maximum Price')
