@@ -86,7 +86,7 @@ User Actions API urls(Register, Login, Getting Logged in User, Logout):
 User Registration:
 </p>
 <p>
-We are going to be using TokenAuthentication with knox
+We are going to be using TokenAuthentication with knox.
 A token will be generated at every successful registration, login, and getting logged in user.
 To Register a User: Send a POST request to 'accounts/api/auth/register/' containing the following:
 1. Body; returning: first_name, last_name, username, email, and password in that order. 
