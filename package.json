@@ -1,0 +1,33 @@
+{
+  "name": "GetTutored",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <a href=\"\" rel=\"noopener\">\r     <img width=200px height=200px src=\"https://i.imgur.com/6wj0hh6.jpg\" alt=\"Get Tutored Online\">\r  </a>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development ./frontend/src/index.js --output ./frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./frontend/src/index.js --output ./frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Double-DOS/GetTutoredOnline.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Double-DOS/GetTutoredOnline/issues"
+  },
+  "homepage": "https://github.com/Double-DOS/GetTutoredOnline#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
