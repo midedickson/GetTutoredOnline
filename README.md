@@ -70,7 +70,7 @@ All Available API Endpoints:
 2. http://localhost:8000/tutors_api/become_tutor/ (To create a tutor account)
 3. http://localhost:8000/tutors_api/tutor/${tutor.id}/ (To view the profile of a particular tutor)
 4. http://localhost:8000/parents_api/become_parent/ (To create a parent account)
-5. http://localhost:8000/parents_api/parent/${tutor.id}/ (To view the profile of a particular parent)
+5. http://localhost:8000/parents_api/parent/${parent.id}/ (To view the profile of a particular parent)
 6. http://localhost:8000/accounts/api/auth/register/ (To register a user)
 7. http://localhost:8000/accounts/api/auth/login/ (To log a user in)
 8. http://localhost:8000/accounts/api/auth/logout/ (To log a user out)
@@ -83,14 +83,15 @@ Details on each end point:
 
 <p align="center">
 User Actions API urls(Register, Login, Getting Logged in User, Logout):
-User Registration:
 </p>
 <p>
 We are going to be using TokenAuthentication with knox.
 </p>
 <p>
-A token will be generated at every successful registration, login, and getting logged in user.
-To Register a User: Send a POST request to 'accounts/api/auth/register/' containing the following:
+
+### A token will be generated at every successful registration, login, and getting logged in user.
+
+### To Register a User: Send a POST request to 'accounts/api/auth/register/' containing the following:
 
 1. Body; returning: first_name, last_name, username, email, and password in that order.
 2. Headers: Content_Type: application/json.
@@ -104,18 +105,19 @@ Create a function to get the token from localstorage and set it as an header wit
 The idea of this authentication is that when the user comes back to the website without logging out previously,
 The user gets automatically logged in with the token stored in the localstorage.
 
-To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
+### To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
 
 1. Headers: Content_Type: application/json.
 
 2. The function to get the token and set it as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
 </p>
 <p>
-To Login a user: Send POST request to 'accounts/api/auth/login/' with config:
 
-3. Body; returning: username, password
+### To Login a user: Send POST request to 'accounts/api/auth/login/' with config:
 
-4. Headers: Content_Type: application/json.
+1. Body; returning: username, password
+
+2. Headers: Content_Type: application/json.
 
 Another token will be sent, set the token as an item to local storage.(if you are using redux, you can use the same state reducer for both login success and register success).
 
@@ -125,26 +127,80 @@ Another token will be sent, set the token as an item to local storage.(if you ar
 
 The idea of this authentication is that when the user comes back to the website without logging out previously,
 The user gets automatically logged in with the token stored in the localstorage.
-To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
 
-1. Headers: Content_Type: application/json, The function to get the token set ia as an header with key'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
+### To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
+
+Headers:
+
+1. Content_Type: application/json.
+2. The function to get the token set ia as an header with key'Authorization': 'Token <\the sent token>' whenever a token is needed for protected views.
 </p>
 <p>
-To Logout a user: Send POST request to 'accounts/api/auth/logout/' with headers:
+
+### To Logout a user: Send POST request to 'accounts/api/auth/logout/' with headers:
 
 1. body: null(this must be specified, else it won't work)
 
-1. Headers: Content_Type: application/json, TokenAuthentication
+2. Headers: Content_Type: application/json, TokenAuthentication
 
 </p>
+<p align="center">
+Tutor Account API urls(Become A Tutor, Get Tutors List):
+</p>
 
-### And coding style tests
+http://localhost:8000/tutors_api/tutor/${tutor.id}/ (To view the profile of a particular tutor)
 
-Explain what these tests test and why
+<p>
 
-```
-Give an example
-```
+### To get Tutor Lists:
+
+Send GET Request to 'tutors_api/tutor_list/' (To display list of all tutors) with empty body and Content_Type
+
+It doesn't need Token because, it is not a protected view.
+
+### To Become A Tutor: Send POST request to 'tutors_api/become_tutor/' with config:
+
+1. Body to return serializer fields, as seen in the output of tutor_list, excluding: id, info, and date_joined (they will be added automatically)Note: info will be the logged in user, so we need to pass token authentication.
+2. Headers: Content_Type: applicaion/json, Token Authentication
+
+### To view profile of tutor: Send GET request to 'tutors_api/tutor/\${tutor.id}/' with config:
+
+1. Body: null
+2. Headers: Content_Type: application/json, TokenAuthentication
+   This view is also protected.
+
+### To view update an tutor: Send POST request to 'tutors_api/tutor/\${tutor.id}/' with config:
+
+1. Body: null
+2. Headers: Content_Type: application/json, TokenAuthentication(only the user asociated the tutor account can update)
+   This view is protected.
+
+### To delete profile of an tutor: Send DELETE request to 'tutors_api/tutor/\${tutor.id}/' with config:
+
+1. Body: null
+2. Headers: Content_Type: application/json, TokenAuthentication
+This view is very protected, and only by the user associated with tutor account protected.
+</p>
+<p>
+
+### To view profile of parent: Send GET request to 'tutors_api/parent/\${parent.id}/' with config:
+
+1. Body: null
+2. Headers: Content_Type: application/json, TokenAuthentication
+   This view is also protected. Only the owner can see it
+
+### To update an parent: Send POST request to 'parents_api/parent/\${parent.id}/' with config:
+
+1. Body: As used seen in the first view, sorry. exceptt id, tutor, address, state, photo doesn't show
+2. Headers: Content_Type: application/json, TokenAuthentication(only the user asociated the parent account can update)
+   This view is protected.
+
+### To delete profile of a parent: Send DELETE request to 'parents_api/parent/\${parent.id}/' with config:
+
+1. Body: null
+2. Headers: Content_Type: application/json, TokenAuthentication
+This view is very protected, and only by the user associated with parent account protected.
+<p>
 
 ## 🎈 Usage <a name="usage"></a>
 
@@ -159,12 +215,12 @@ Coming Soon
 
 ## ✍️ Authors <a name = "authors"></a>
 
-Ethical Ralph(add your github link) -- FrontEnd Engineer
-Double_DOS(my github link) -- BackEnd Engineer & Initial Work
-Ediare Stephen -- Idea
-Dayo Abdullahi -- UIUX Designer
+[EthicalRalph](add your github link) -- FrontEnd Engineer
+[Double_DOS](my github link) -- BackEnd Engineer & Initial Work
+[Ediare_Stephen] -- Idea
+[Dayo_Abdullahi] -- UIUX Designer
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
+See also the list of [contributors](I'll the link) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
