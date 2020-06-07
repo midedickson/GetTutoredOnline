@@ -34,7 +34,6 @@ class TutorCreate(generics.CreateAPIView):
 
         # Add id of currently logged user
         data['info'] = request.user.id
-
         # Default behavior but pass our modified data instead
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
