@@ -100,16 +100,17 @@ A token will be generated, set the token as an item in local storage.
 Create a function to get the token from localstorage and set it as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
 </p>
 <p>
-(We are doing this to check if there's an authenticated user when the website is visited)
-
-The idea of this authentication is that when the user comes back to the website without logging out previously,
-The user gets automatically logged in with the token stored in the localstorage.
 
 ### To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
 
 1. Headers: Content_Type: application/json.
 
 2. The function to get the token and set it as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
+   (We are doing this to check if there's an authenticated user when the website is visited)
+
+The idea of this authentication is that when the user comes back to the website without logging out previously,
+The user gets automatically logged in with the token stored in the localstorage.
+
 </p>
 <p>
 
@@ -123,10 +124,6 @@ Another token will be sent, set the token as an item to local storage.(if you ar
 
 </p>
 <p>
-(We are doing this when the user is not authenticated, the website should redirect to login page.)
-
-The idea of this authentication is that when the user comes back to the website without logging out previously,
-The user gets automatically logged in with the token stored in the localstorage.
 
 ### To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
 
@@ -134,6 +131,12 @@ Headers:
 
 1. Content_Type: application/json.
 2. The function to get the token set ia as an header with key'Authorization': 'Token <\the sent token>' whenever a token is needed for protected views.
+
+(We are doing this when the user is not authenticated, the website should redirect to login page.)
+
+The idea of this authentication is that when the user comes back to the website without logging out previously,
+The user gets automatically logged in with the token stored in the localstorage.
+
 </p>
 <p>
 
@@ -147,8 +150,6 @@ Headers:
 <p align="center">
 Tutor Account API urls(Become A Tutor, Get Tutors List):
 </p>
-
-http://localhost:8000/tutors_api/tutor/${tutor.id}/ (To view the profile of a particular tutor)
 
 <p>
 
