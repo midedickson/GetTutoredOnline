@@ -89,39 +89,52 @@ User Registration:
 We are going to be using TokenAuthentication with knox.
 </p>
 <p>
-A token will be generated at every successful registration, login, and getting logged in user.<br/>
+A token will be generated at every successful registration, login, and getting logged in user.
 To Register a User: Send a POST request to 'accounts/api/auth/register/' containing the following:
-1. Body; returning: first_name, last_name, username, email, and password in that order. 
-Headers: Content_Type: application/json. 
+
+1. Body; returning: first_name, last_name, username, email, and password in that order.
+2. Headers: Content_Type: application/json.
 Using Axios or Fetch, Axios is preferrable though.
 A token will be generated, set the token as an item in local storage.
-Create a function to get the token from localstorage and set it as an header  with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
+Create a function to get the token from localstorage and set it as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
 </p>
 <p>
 (We are doing this to check if there's an authenticated user when the website is visited)
+
 The idea of this authentication is that when the user comes back to the website without logging out previously,
 The user gets automatically logged in with the token stored in the localstorage.
+
 To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
-1. Headers: Content_Type: application/json. 
-2.The function to get the token and set it as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
+
+1. Headers: Content_Type: application/json.
+
+2. The function to get the token and set it as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
 </p>
 <p>
-To Login a user: Send POST request to 'accounts/api/auth/login/' with headers:
-1. Body; returning: username, password
-2. Headers: Content_Type: application/json. 
+To Login a user: Send POST request to 'accounts/api/auth/login/' with config:
+
+3. Body; returning: username, password
+
+4. Headers: Content_Type: application/json.
+
 Another token will be sent, set the token as an item to local storage.(if you are using redux, you can use the same state reducer for both login success and register success).
+
 </p>
 <p>
 (We are doing this when the user is not authenticated, the website should redirect to login page.)
+
 The idea of this authentication is that when the user comes back to the website without logging out previously,
 The user gets automatically logged in with the token stored in the localstorage.
 To Get an authenticated user: Send GET request to 'accounts/api/auth/user/' with config:
-1. Headers: Content_Type: application/json, The function to get the token set ia as an header with key 'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
+
+1. Headers: Content_Type: application/json, The function to get the token set ia as an header with key'Authorization': 'Token <\the sent token\>' whenever a token is needed to view protected views.
 </p>
 <p>
 To Logout a user: Send POST request to 'accounts/api/auth/logout/' with headers:
+
 1. body: null(this must be specified, else it won't work)
-2. Headers: Content_Type: application/json, TokenAuthentication
+
+1. Headers: Content_Type: application/json, TokenAuthentication
 
 </p>
 
