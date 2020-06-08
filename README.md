@@ -180,7 +180,7 @@ It doesn't need Token because, it is not a protected view.
 
 1. Body: null
 2. Headers: Content_Type: application/json, TokenAuthentication
-This view is very protected, and only by the user associated with tutor account protected.
+This view is very protected, and only by the user associated with tutor account can delete it.
 </p>
 <p>
 
@@ -203,9 +203,17 @@ This view is very protected, and only by the user associated with tutor account 
 This view is very protected, and only by the user associated with parent account protected.
 <p>
 
-## 🎈 Usage <a name="usage"></a>
+## 🎈 Reactification(Integrating React with Django) <a name="usage"></a>
 
-Coming Soon
+The Current URL to load the react frontend is at the root '/'
+So, after running the server like so:
+
+```
+python manage.py runserver
+
+```
+
+link to http://localhost:8000/
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
