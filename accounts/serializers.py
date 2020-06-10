@@ -28,13 +28,6 @@ class RegisterSerilizer(serializers.ModelSerializer):
         user.save()
         return user
 
-
-"""
-    def perform_create(self, serializer):
-        serializer.save(
-            first_name=validated_data['first_name'], last_name=validated_data['last_name'])
-"""
-
 # Login Serializer
 
 
